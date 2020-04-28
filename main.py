@@ -11,6 +11,7 @@ import cloudscraper
 import time, os, sys, re, json, html, copy, shutil
 import sys
 import functools
+import threading
 
 def find_manga(manga_list, title):
     for manga in manga_list:
@@ -303,7 +304,11 @@ class Main(QMainWindow):
         tabindex = self.gui.tabWidget.currentIndex()
         for title, new_chapters in self.to_download.items():
             mangaid = self.get_mangaid(title, tabindex)
-            download_specific_manga(mangaid, new_chapters)
+            download = threading.Thread(target=download_specific_manga, args=(mangaid, new_chapters))
+            download.daemon = True
+            download.start()
+
+            # download_specific_manga(mangaid, new_chapters)
 
     def handle_move_click(self, btn):
         tabindex = self.gui.tabWidget.currentIndex()
@@ -471,7 +476,7 @@ class Reader(QMainWindow):
                 self.profile[self.category][index]['recent_read'] = numchap
         with open('profile.json', 'w+') as outfile:
             json.dump(self.profile, outfile)
-        self.read_chapters.append(self.chapter_list[self.chapter_index])
+        self.read_chapters.append(self.chapter_index)
         if self.chapter_index < len(self.chapter_list)-1:
             self.chapter_index += 1
             self.set_page_new_chap()

@@ -129,6 +129,7 @@ def update_all_mangas(category):
             to_download_chapters[manga['title']] = to_download
         except:
             print("Error with URL.")
+    print("update finished!")
     return updated_chapters, to_download_chapters
 
 
