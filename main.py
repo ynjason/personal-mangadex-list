@@ -33,14 +33,14 @@ def getchapterlist(manga_dict):
         print(manga)
     except (json.decoder.JSONDecodeError, ValueError) as err:
         print("CloudFlare error: {}".format(err))
-        exit(1)
+        return []
 
     # check available chapters
     chapters = []
 
     if "chapter" not in manga:
         print("Chapter not found in the language you requested.")
-        exit(1)
+        return []
 
     for chap in manga["chapter"]:
         if manga["chapter"][str(chap)]["lang_code"] == "gb":
@@ -69,7 +69,7 @@ def getchapterlist(manga_dict):
 
     if len(chaps_to_show) == 0:
         print("No chapters available!")
-        exit(0)
+        return []
     return chaps_to_show
 
 class Main(QMainWindow):
@@ -120,6 +120,13 @@ class Main(QMainWindow):
         self.gui.url_1.returnPressed.connect(lambda: self.handle_url_submit(self.gui.url_1))
         self.gui.url_2.returnPressed.connect(lambda: self.handle_url_submit(self.gui.url_2))
         self.gui.url_3.returnPressed.connect(lambda: self.handle_url_submit(self.gui.url_3))
+
+        self.gui.remove_btn_grp = QtWidgets.QButtonGroup()
+        self.gui.remove_btn_grp.setExclusive(True)
+        self.gui.remove_btn_grp.addButton(self.gui.Remove_1)
+        self.gui.remove_btn_grp.addButton(self.gui.Remove_2)
+        self.gui.remove_btn_grp.addButton(self.gui.Remove_3)
+        self.gui.remove_btn_grp.buttonClicked.connect(self.handle_remove_click)
 
         self.updated_manga = {}
     
@@ -201,6 +208,8 @@ class Main(QMainWindow):
         findcombo = "Mangaselect_" + str(tabindex+1)
         selectcombo = self.gui.tabWidget.findChild(QtWidgets.QComboBox, findcombo)
         findmanga = selectcombo.currentText()
+        if findmanga == '':
+            return
         manga = find_manga(self.profile[tabindex], findmanga)
 
         description = "Description_" + str(tabindex+1)
@@ -307,6 +316,28 @@ class Main(QMainWindow):
             self.profile = json.load(infile)
         print(self.updated_manga)
 
+
+    def handle_remove_click(self, btn):
+        tabindex = self.gui.tabWidget.currentIndex()
+        findcombo = "Mangaselect_" + str(tabindex+1)
+        selectcombo = self.gui.tabWidget.findChild(QtWidgets.QComboBox, findcombo)
+        findmanga = selectcombo.currentText()
+        if findmanga == '':
+            return
+
+        findcombo = "manga_" + str(tabindex+1)
+        selectcombo = self.gui.tabWidget.findChild(QtWidgets.QComboBox, findcombo)
+        selectcombo.removeItem(selectcombo.findText(findmanga, QtCore.Qt.MatchFixedString))
+
+        remove_manga = "Mangaselect_" + str(tabindex+1)
+        mangacombo = self.gui.tabWidget.findChild(QtWidgets.QComboBox, remove_manga)
+        mangacombo.removeItem(mangacombo.findText(findmanga, QtCore.Qt.MatchFixedString))
+
+        for i, manga in enumerate(self.profile[tabindex]):
+            if manga['title'] == findmanga:
+                removed_manga = self.profile[tabindex].pop(i)
+        with open('profile.json', 'w+') as outfile:
+            json.dump(self.profile, outfile)
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>2</number>
+     <number>0</number>
     </property>
     <widget class="QWidget" name="CurrentlyReading">
      <attribute name="title">
@@ -80,20 +80,13 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>501</width>
+        <width>391</width>
         <height>61</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="ChooseManga_1">
        <item>
         <widget class="QComboBox" name="Mangaselect_1"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Select_1">
-         <property name="text">
-          <string>Select</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -169,6 +162,32 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_7">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>0</y>
+        <width>111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_4">
+       <item>
+        <widget class="QPushButton" name="Select_1">
+         <property name="text">
+          <string>Select</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Remove_1">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="ToTry">
      <attribute name="title">
@@ -179,20 +198,13 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>501</width>
+        <width>391</width>
         <height>61</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="ChooseManga_2">
        <item>
         <widget class="QComboBox" name="Mangaselect_2"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Select_2">
-         <property name="text">
-          <string>Select</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -313,6 +325,32 @@
        </item>
       </layout>
      </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_6">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>0</y>
+        <width>111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout_3">
+       <item>
+        <widget class="QPushButton" name="Select_2">
+         <property name="text">
+          <string>Select</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Remove_2">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
+       </item>
+      </layout>
+     </widget>
     </widget>
     <widget class="QWidget" name="Completed">
      <attribute name="title">
@@ -369,20 +407,13 @@
        <rect>
         <x>0</x>
         <y>0</y>
-        <width>501</width>
+        <width>391</width>
         <height>61</height>
        </rect>
       </property>
       <layout class="QHBoxLayout" name="ChooseManga_3">
        <item>
         <widget class="QComboBox" name="Mangaselect_3"/>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Select_3">
-         <property name="text">
-          <string>Select</string>
-         </property>
-        </widget>
        </item>
       </layout>
      </widget>
@@ -454,6 +485,32 @@
        </item>
        <item>
         <widget class="QLineEdit" name="url_3"/>
+       </item>
+      </layout>
+     </widget>
+     <widget class="QWidget" name="verticalLayoutWidget_5">
+      <property name="geometry">
+       <rect>
+        <x>390</x>
+        <y>0</y>
+        <width>111</width>
+        <height>61</height>
+       </rect>
+      </property>
+      <layout class="QVBoxLayout" name="verticalLayout">
+       <item>
+        <widget class="QPushButton" name="Select_3">
+         <property name="text">
+          <string>Select</string>
+         </property>
+        </widget>
+       </item>
+       <item>
+        <widget class="QPushButton" name="Remove_3">
+         <property name="text">
+          <string>Remove</string>
+         </property>
+        </widget>
        </item>
       </layout>
      </widget>
