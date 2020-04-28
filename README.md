@@ -1,9 +1,12 @@
 # personal-mangadex-list
 
-Very basic personal manga list with reader (TODO) from mangadex
-Can keep track of currently reading, to try and completed manga
-Gives basic description of manga with a list of chapters and picture of cover
-can add new manga into each list and move between lists
+Very basic personal manga list with readerfrom mangadex.\
+Can keep track of currently reading, to try and completed manga.\
+Gives basic description of manga with a list of chapters and picture of cover\
+can add new manga into each list and move between lists\
+Can update and download new chapters released to Mangadex and read them on a reader\
+can keep track of where you read off on\
+Maintains cover img and chapters from Mangadex
 
 ## Getting Started
 
