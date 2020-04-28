@@ -39,7 +39,7 @@ def download_specific_manga(manga_id, new_chapters, lang_code="gb", tld="org"):
     except:
         print("Please enter a MangaDex manga (not chapter) URL.")
         return
-    print("\nTitle: {}".format(html.unescape(title)))
+    # print("\nTitle: {}".format(html.unescape(title)))
 
     # check available chapters
     chapters = []
@@ -112,7 +112,7 @@ def download_specific_manga(manga_id, new_chapters, lang_code="gb", tld="org"):
                 os.makedirs(dest_folder)
             dest_filename = pad_filename(filename)
             outfile = os.path.join(dest_folder, dest_filename)
-            print(url)
+            # print(url)
             r = scraper.get(url)
             if r.status_code == 200:
                 with open(outfile, 'wb') as f:

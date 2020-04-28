@@ -32,7 +32,7 @@ def getchapterlist(manga_dict):
         r = scraper.get(manga_dict["url"])
         # print(r)
         manga = json.loads(r.text)
-        print(manga)
+        # print(manga)
     except (json.decoder.JSONDecodeError, ValueError) as err:
         print("CloudFlare error: {}".format(err))
         return []
@@ -52,7 +52,7 @@ def getchapterlist(manga_dict):
     chapters_revised = ["Oneshot" if x == "" else x for x in chapters]
 
     chaps_to_show = []
-    print(chapters)
+    # print(chapters)
     for chapter_id in manga["chapter"]:
         try:
             chapter_num = str(float(manga["chapter"][str(chapter_id)]["chapter"])).replace(".0","")
@@ -84,7 +84,7 @@ class Main(QMainWindow):
     def __init__(self):
         QMainWindow.__init__(self)
         with open('profile.json', 'r') as infile:
-            print("here")
+            # print("here")
             self.profile = json.load(infile)
 
         self.gui = Ui_gui()
@@ -136,7 +136,7 @@ class Main(QMainWindow):
     def handle_url_submit(self, lineedit):
         tabindex = self.gui.tabWidget.currentIndex()
         url = lineedit.text()
-        print(url)
+        # print(url)
         try:
             manga_id = re.search("[0-9]+", url).group(0)
             split_url = url.split("/")
@@ -150,7 +150,7 @@ class Main(QMainWindow):
         try:
             r = scraper.get("https://mangadex.{}/api/manga/{}/".format(tld, manga_id))
             manga = json.loads(r.text)
-            print(manga)
+            # print(manga)
         except (json.decoder.JSONDecodeError, ValueError) as err:
             print("CloudFlare error: {}".format(err))
             exit(1)
@@ -207,7 +207,7 @@ class Main(QMainWindow):
 
 
     def handle_select_click(self, btn):
-        print(btn.text())
+        # print(btn.text())
         tabindex = self.gui.tabWidget.currentIndex()
         findcombo = "Mangaselect_" + str(tabindex+1)
         selectcombo = self.gui.tabWidget.findChild(QtWidgets.QComboBox, findcombo)
@@ -293,8 +293,8 @@ class Main(QMainWindow):
     
     def gotoreader(self, event, category, manga, chapter_list, chapter_index):
         # print(btn.text())
-        print(chapter_index)
-        print(chapter_list)
+        # print(chapter_index)
+        # print(chapter_list)
         self.reader = Reader(category, manga, chapter_list, chapter_index)
         self.reader.show()
         self.close()
@@ -310,7 +310,7 @@ class Main(QMainWindow):
         findcombo = "manga_" + str(tabindex+1)
         selectcombo = self.gui.tabWidget.findChild(QtWidgets.QComboBox, findcombo)
         findmanga = selectcombo.currentText()
-        print(findmanga)
+        # print(findmanga)
         selectcombo.removeItem(selectcombo.currentIndex())
 
         remove_manga = "Mangaselect_" + str(tabindex+1)
@@ -357,7 +357,7 @@ class Main(QMainWindow):
         self.updated_manga, self.to_download = update_all_mangas(tabindex)
         with open('profile.json', 'r') as infile:
             self.profile = json.load(infile)
-        print(self.updated_manga)
+        # print(self.updated_manga)
 
 
     def handle_remove_click(self, btn):
@@ -405,7 +405,7 @@ class Reader(QMainWindow):
     def __init__(self, category, manga, chapter_list, chapter_index):
         QMainWindow.__init__(self)
         with open('profile.json', 'r') as infile:
-            print("here")
+            # print("here")
             self.profile = json.load(infile)
         self.category = category
         self.chapter_list = chapter_list
@@ -492,7 +492,7 @@ class Reader(QMainWindow):
     def handle_home_click(self):
         # delete read chapters
         for chapter in self.read_chapters:
-            path = "download/{}/{}/".format(self.manga, chapter)
+            path = "download/{}/{}/".format(self.manga, self.chapter_list[chapter])
             shutil.rmtree(path)
         self.main = Main()
         self.main.show()
@@ -511,7 +511,8 @@ class Reader(QMainWindow):
         description = '{} page:{}'.format(self.chapter_list[self.chapter_index], self.page_list[self.page_index])
         object = QLabel(description)
         self.reader.scrollvbox.addWidget(object)
-            
+        
+        print("download/{}/{}/{}".format(self.manga, self.chapter_list[self.chapter_index], self.page_list[self.page_index]))
         self.reader.img = QtGui.QPixmap("download/{}/{}/{}".format(self.manga, self.chapter_list[self.chapter_index], self.page_list[self.page_index]))
         self.reader.img = self.reader.img.scaledToHeight(1024)
         self.reader.imglabel = QtWidgets.QLabel()
