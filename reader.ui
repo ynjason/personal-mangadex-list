@@ -6,101 +6,89 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>804</width>
-    <height>596</height>
+    <width>891</width>
+    <height>641</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>personal-mangadex-list</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QWidget" name="horizontalLayoutWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>801</width>
-      <height>31</height>
-     </rect>
-    </property>
-    <layout class="QHBoxLayout" name="horizontalLayout">
-     <item>
-      <widget class="QComboBox" name="pagelist"/>
-     </item>
-     <item>
-      <widget class="QPushButton" name="jump">
-       <property name="text">
-        <string>Jump to Page</string>
+   <layout class="QVBoxLayout" name="verticalLayout">
+    <item>
+     <layout class="QHBoxLayout" name="horizontalLayout">
+      <item>
+       <widget class="QComboBox" name="pagelist"/>
+      </item>
+      <item>
+       <widget class="QPushButton" name="jump">
+        <property name="text">
+         <string>Jump to Page</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="unread">
+        <property name="text">
+         <string>Mark as unread</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="read">
+        <property name="text">
+         <string>Mark as read</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="previous">
+        <property name="text">
+         <string>Previous Chapter</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="next">
+        <property name="text">
+         <string>Next Chapter</string>
+        </property>
+       </widget>
+      </item>
+      <item>
+       <widget class="QPushButton" name="home">
+        <property name="text">
+         <string>Home</string>
+        </property>
+       </widget>
+      </item>
+     </layout>
+    </item>
+    <item>
+     <widget class="QScrollArea" name="scrollArea">
+      <property name="widgetResizable">
+       <bool>true</bool>
+      </property>
+      <widget class="QWidget" name="scrollAreaWidgetContents">
+       <property name="geometry">
+        <rect>
+         <x>0</x>
+         <y>0</y>
+         <width>871</width>
+         <height>549</height>
+        </rect>
        </property>
       </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="unread">
-       <property name="text">
-        <string>Mark as unread</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="read">
-       <property name="text">
-        <string>Mark as read</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="previous">
-       <property name="text">
-        <string>Previous Chapter</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="next">
-       <property name="text">
-        <string>Next Chapter</string>
-       </property>
-      </widget>
-     </item>
-     <item>
-      <widget class="QPushButton" name="home">
-       <property name="text">
-        <string>Home</string>
-       </property>
-      </widget>
-     </item>
-    </layout>
-   </widget>
-   <widget class="QScrollArea" name="scrollArea">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>30</y>
-      <width>801</width>
-      <height>531</height>
-     </rect>
-    </property>
-    <property name="widgetResizable">
-     <bool>true</bool>
-    </property>
-    <widget class="QWidget" name="scrollAreaWidgetContents">
-     <property name="geometry">
-      <rect>
-       <x>0</x>
-       <y>0</y>
-       <width>799</width>
-       <height>529</height>
-      </rect>
-     </property>
-    </widget>
-   </widget>
+     </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>804</width>
+     <width>891</width>
      <height>21</height>
     </rect>
    </property>

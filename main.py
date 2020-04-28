@@ -171,6 +171,7 @@ class Main(QMainWindow):
                 "cover_url": "https://mangadex.{}".format(tld+manga["manga"]["cover_url"]),
                 "recent_read": 0,
                 "recent_update": 0,
+                "new_update": [],
                 "tld": tld
                 }
         self.profile[tabindex].append(new)
@@ -240,6 +241,18 @@ class Main(QMainWindow):
 
         self.gui.mangaread = QtWidgets.QLabel("recently read chapter: " + str(manga['recent_read']))
         self.gui.scrollvbox.addWidget(self.gui.mangaread)
+
+        newupdate = "New Updates: "
+        if len(manga['new_update']) == 0:
+            newupdate += "None"
+        else:
+            for chapter in manga['new_update']:
+                if chapter == '':
+                    newupdate += 'Oneshot '
+                else:
+                    newupdate += str(chapter) + ' '
+        self.gui.newupdate = QtWidgets.QLabel(newupdate)
+        self.gui.scrollvbox.addWidget(self.gui.newupdate)
 
         chapters = getchapterlist(manga)
         downloaded_list = []
@@ -458,7 +471,7 @@ class Reader(QMainWindow):
                 self.profile[self.category][index]['recent_read'] = numchap
         with open('profile.json', 'w+') as outfile:
             json.dump(self.profile, outfile)
-        self.read_chapters.append(self.chapter_index)
+        self.read_chapters.append(self.chapter_list[self.chapter_index])
         if self.chapter_index < len(self.chapter_list)-1:
             self.chapter_index += 1
             self.set_page_new_chap()
@@ -488,12 +501,19 @@ class Reader(QMainWindow):
 
     def setpage(self):
         scrollarea = self.reader.centralwidget.findChild(QtWidgets.QScrollArea, 'scrollArea')
+        combobox = self.reader.centralwidget.findChild(QtWidgets.QComboBox, 'pagelist')
+
+        combobox.setCurrentIndex(self.page_index)
 
         self.reader.scrollwidget = QWidget(scrollarea)
         self.reader.scrollvbox = QVBoxLayout(self.reader.scrollwidget)
+
+        description = '{} page:{}'.format(self.chapter_list[self.chapter_index], self.page_list[self.page_index])
+        object = QLabel(description)
+        self.reader.scrollvbox.addWidget(object)
             
         self.reader.img = QtGui.QPixmap("download/{}/{}/{}".format(self.manga, self.chapter_list[self.chapter_index], self.page_list[self.page_index]))
-        # self.reader.cover_img = self.gui.cover_img.scaledToWidth(256)
+        self.reader.img = self.reader.img.scaledToHeight(1024)
         self.reader.imglabel = QtWidgets.QLabel()
         self.reader.imglabel.setPixmap(self.reader.img)
         self.reader.scrollvbox.addWidget(self.reader.imglabel)
@@ -502,7 +522,7 @@ class Reader(QMainWindow):
 
         #Scroll Area Properties
         scrollarea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
-        scrollarea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        # scrollarea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
         scrollarea.setWidgetResizable(True)
         scrollarea.setWidget(self.reader.scrollwidget)
         

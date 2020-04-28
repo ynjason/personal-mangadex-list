@@ -6,523 +6,387 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>804</width>
-    <height>626</height>
+    <width>1029</width>
+    <height>799</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>personal-mangadex-list</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QTabWidget" name="tabWidget">
-    <property name="geometry">
-     <rect>
-      <x>0</x>
-      <y>0</y>
-      <width>801</width>
-      <height>611</height>
-     </rect>
-    </property>
-    <property name="currentIndex">
-     <number>0</number>
-    </property>
-    <widget class="QWidget" name="CurrentlyReading">
-     <attribute name="title">
-      <string>Currently Reading</string>
-     </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>60</y>
-        <width>791</width>
-        <height>41</height>
-       </rect>
+   <layout class="QVBoxLayout" name="verticalLayout_2">
+    <item>
+     <widget class="QTabWidget" name="tabWidget">
+      <property name="currentIndex">
+       <number>2</number>
       </property>
-      <layout class="QVBoxLayout" name="Urladd_1">
-       <item>
-        <widget class="QLabel" name="urlText_1">
-         <property name="text">
-          <string>Mangadex url to add manga to list</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="url_1"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QScrollArea" name="Description_1">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>100</y>
-        <width>791</width>
-        <height>461</height>
-       </rect>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="DescriptionContents_1">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>789</width>
-         <height>459</height>
-        </rect>
-       </property>
+      <widget class="QWidget" name="CurrentlyReading">
+       <attribute name="title">
+        <string>Currently Reading</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="ChooseManga_1">
+          <item>
+           <widget class="QComboBox" name="Mangaselect_1"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_4">
+          <item>
+           <widget class="QPushButton" name="Select_1">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Remove_1">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="2">
+         <layout class="QGridLayout" name="movegrid_1">
+          <item row="0" column="1">
+           <widget class="QComboBox" name="category_1">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>To Try</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Completed</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="confirmmove_1">
+            <property name="text">
+             <string>Move</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="MoveCategories_1">
+            <property name="text">
+             <string>Move Categories</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QComboBox" name="manga_1"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="3">
+         <layout class="QVBoxLayout" name="updateanddownload_1">
+          <item>
+           <widget class="QPushButton" name="downloadnew_1">
+            <property name="text">
+             <string>Download New</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateall_1">
+            <property name="text">
+             <string>Update All</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <layout class="QVBoxLayout" name="Urladd_1">
+          <item>
+           <widget class="QLabel" name="urlText_1">
+            <property name="text">
+             <string>Mangadex url to add manga to list</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="url_1"/>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QScrollArea" name="Description_1">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="DescriptionContents_1">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>985</width>
+             <height>587</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="ToTry">
+       <attribute name="title">
+        <string>To Try</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_2">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="ChooseManga_2">
+          <item>
+           <widget class="QComboBox" name="Mangaselect_2"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout_3">
+          <item>
+           <widget class="QPushButton" name="Select_2">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Remove_2">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="2">
+         <layout class="QGridLayout" name="movegrid_2">
+          <item row="0" column="1">
+           <widget class="QComboBox" name="category_2">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Currently Reading</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>Completed</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="confirmmove_2">
+            <property name="text">
+             <string>Move</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="MoveCategories_2">
+            <property name="text">
+             <string>Move Categories</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QComboBox" name="manga_2"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="3">
+         <layout class="QVBoxLayout" name="updateanddownload_2">
+          <item>
+           <widget class="QPushButton" name="downloadnew_2">
+            <property name="text">
+             <string>Download New</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateall_2">
+            <property name="text">
+             <string>Update All</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <layout class="QVBoxLayout" name="Urladd_2">
+          <item>
+           <widget class="QLabel" name="urlText_2">
+            <property name="text">
+             <string>Mangadex url to add manga to list</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="url_2"/>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QScrollArea" name="Description_2">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="DescriptionContents_2">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>985</width>
+             <height>587</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
+      </widget>
+      <widget class="QWidget" name="Completed">
+       <attribute name="title">
+        <string>Completed</string>
+       </attribute>
+       <layout class="QGridLayout" name="gridLayout_3">
+        <item row="0" column="0">
+         <layout class="QHBoxLayout" name="ChooseManga_3">
+          <item>
+           <widget class="QComboBox" name="Mangaselect_3"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="1">
+         <layout class="QVBoxLayout" name="verticalLayout">
+          <item>
+           <widget class="QPushButton" name="Select_3">
+            <property name="text">
+             <string>Select</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="Remove_3">
+            <property name="text">
+             <string>Remove</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="2">
+         <layout class="QGridLayout" name="movegrid_3">
+          <item row="0" column="1">
+           <widget class="QComboBox" name="category_3">
+            <property name="whatsThis">
+             <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+            </property>
+            <item>
+             <property name="text">
+              <string>Currently Reading</string>
+             </property>
+            </item>
+            <item>
+             <property name="text">
+              <string>To Try</string>
+             </property>
+            </item>
+           </widget>
+          </item>
+          <item row="1" column="1">
+           <widget class="QPushButton" name="confirmmove_3">
+            <property name="text">
+             <string>Move</string>
+            </property>
+           </widget>
+          </item>
+          <item row="1" column="0">
+           <widget class="QLabel" name="MoveCategories_3">
+            <property name="text">
+             <string>Move Categories</string>
+            </property>
+           </widget>
+          </item>
+          <item row="0" column="0">
+           <widget class="QComboBox" name="manga_3"/>
+          </item>
+         </layout>
+        </item>
+        <item row="0" column="3">
+         <layout class="QVBoxLayout" name="updateanddownload_3">
+          <item>
+           <widget class="QPushButton" name="downloadnew_3">
+            <property name="text">
+             <string>Download New</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QPushButton" name="updateall_3">
+            <property name="text">
+             <string>Update All</string>
+            </property>
+           </widget>
+          </item>
+         </layout>
+        </item>
+        <item row="1" column="0" colspan="4">
+         <layout class="QVBoxLayout" name="Urladd_3">
+          <item>
+           <widget class="QLabel" name="urlText_3">
+            <property name="text">
+             <string>Mangadex url to add manga to list</string>
+            </property>
+           </widget>
+          </item>
+          <item>
+           <widget class="QLineEdit" name="url_3"/>
+          </item>
+         </layout>
+        </item>
+        <item row="2" column="0" colspan="4">
+         <widget class="QScrollArea" name="Description_3">
+          <property name="widgetResizable">
+           <bool>true</bool>
+          </property>
+          <widget class="QWidget" name="DescriptionContents_3">
+           <property name="geometry">
+            <rect>
+             <x>0</x>
+             <y>0</y>
+             <width>985</width>
+             <height>587</height>
+            </rect>
+           </property>
+          </widget>
+         </widget>
+        </item>
+       </layout>
       </widget>
      </widget>
-     <widget class="QWidget" name="verticalLayoutWidget">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>391</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="ChooseManga_1">
-       <item>
-        <widget class="QComboBox" name="Mangaselect_1"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="gridLayoutWidget_5">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>0</y>
-        <width>202</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="movegrid_1">
-       <item row="0" column="1">
-        <widget class="QComboBox" name="category_1">
-         <property name="whatsThis">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>To Try</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Completed</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="confirmmove_1">
-         <property name="text">
-          <string>Move</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="MoveCategories_1">
-         <property name="text">
-          <string>Move Categories</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QComboBox" name="manga_1"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_9">
-      <property name="geometry">
-       <rect>
-        <x>710</x>
-        <y>0</y>
-        <width>81</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="updateanddownload_1">
-       <item>
-        <widget class="QPushButton" name="downloadnew_1">
-         <property name="text">
-          <string>Download New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="updateall_1">
-         <property name="text">
-          <string>Update All</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_7">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>0</y>
-        <width>111</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_4">
-       <item>
-        <widget class="QPushButton" name="Select_1">
-         <property name="text">
-          <string>Select</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Remove_1">
-         <property name="text">
-          <string>Remove</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="ToTry">
-     <attribute name="title">
-      <string>To Try</string>
-     </attribute>
-     <widget class="QWidget" name="verticalLayoutWidget_10">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>391</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="ChooseManga_2">
-       <item>
-        <widget class="QComboBox" name="Mangaselect_2"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QScrollArea" name="Description_2">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>100</y>
-        <width>791</width>
-        <height>461</height>
-       </rect>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="DescriptionContents_2">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>789</width>
-         <height>459</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="gridLayoutWidget_6">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>0</y>
-        <width>202</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="movegrid_2">
-       <item row="0" column="1">
-        <widget class="QComboBox" name="category_2">
-         <property name="whatsThis">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Currently Reading</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>Completed</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="confirmmove_2">
-         <property name="text">
-          <string>Move</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="MoveCategories_2">
-         <property name="text">
-          <string>Move Categories</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QComboBox" name="manga_2"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_11">
-      <property name="geometry">
-       <rect>
-        <x>710</x>
-        <y>0</y>
-        <width>81</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="updateanddownload_2">
-       <item>
-        <widget class="QPushButton" name="downloadnew_2">
-         <property name="text">
-          <string>Download New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="updateall_2">
-         <property name="text">
-          <string>Update All</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>60</y>
-        <width>791</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="Urladd_2">
-       <item>
-        <widget class="QLabel" name="urlText_2">
-         <property name="text">
-          <string>Mangadex url to add manga to list</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="url_2"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_6">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>0</y>
-        <width>111</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout_3">
-       <item>
-        <widget class="QPushButton" name="Select_2">
-         <property name="text">
-          <string>Select</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Remove_2">
-         <property name="text">
-          <string>Remove</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-    <widget class="QWidget" name="Completed">
-     <attribute name="title">
-      <string>Completed</string>
-     </attribute>
-     <widget class="QWidget" name="gridLayoutWidget_7">
-      <property name="geometry">
-       <rect>
-        <x>500</x>
-        <y>0</y>
-        <width>202</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QGridLayout" name="movegrid_3">
-       <item row="0" column="1">
-        <widget class="QComboBox" name="category_3">
-         <property name="whatsThis">
-          <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;br/&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
-         </property>
-         <item>
-          <property name="text">
-           <string>Currently Reading</string>
-          </property>
-         </item>
-         <item>
-          <property name="text">
-           <string>To Try</string>
-          </property>
-         </item>
-        </widget>
-       </item>
-       <item row="1" column="1">
-        <widget class="QPushButton" name="confirmmove_3">
-         <property name="text">
-          <string>Move</string>
-         </property>
-        </widget>
-       </item>
-       <item row="1" column="0">
-        <widget class="QLabel" name="MoveCategories_3">
-         <property name="text">
-          <string>Move Categories</string>
-         </property>
-        </widget>
-       </item>
-       <item row="0" column="0">
-        <widget class="QComboBox" name="manga_3"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_13">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>0</y>
-        <width>391</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QHBoxLayout" name="ChooseManga_3">
-       <item>
-        <widget class="QComboBox" name="Mangaselect_3"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QScrollArea" name="Description_3">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>100</y>
-        <width>791</width>
-        <height>461</height>
-       </rect>
-      </property>
-      <property name="widgetResizable">
-       <bool>true</bool>
-      </property>
-      <widget class="QWidget" name="DescriptionContents_3">
-       <property name="geometry">
-        <rect>
-         <x>0</x>
-         <y>0</y>
-         <width>789</width>
-         <height>459</height>
-        </rect>
-       </property>
-      </widget>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_12">
-      <property name="geometry">
-       <rect>
-        <x>710</x>
-        <y>0</y>
-        <width>81</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="updateanddownload_3">
-       <item>
-        <widget class="QPushButton" name="downloadnew_3">
-         <property name="text">
-          <string>Download New</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="updateall_3">
-         <property name="text">
-          <string>Update All</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_4">
-      <property name="geometry">
-       <rect>
-        <x>0</x>
-        <y>60</y>
-        <width>791</width>
-        <height>41</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="Urladd_3">
-       <item>
-        <widget class="QLabel" name="urlText_3">
-         <property name="text">
-          <string>Mangadex url to add manga to list</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QLineEdit" name="url_3"/>
-       </item>
-      </layout>
-     </widget>
-     <widget class="QWidget" name="verticalLayoutWidget_5">
-      <property name="geometry">
-       <rect>
-        <x>390</x>
-        <y>0</y>
-        <width>111</width>
-        <height>61</height>
-       </rect>
-      </property>
-      <layout class="QVBoxLayout" name="verticalLayout">
-       <item>
-        <widget class="QPushButton" name="Select_3">
-         <property name="text">
-          <string>Select</string>
-         </property>
-        </widget>
-       </item>
-       <item>
-        <widget class="QPushButton" name="Remove_3">
-         <property name="text">
-          <string>Remove</string>
-         </property>
-        </widget>
-       </item>
-      </layout>
-     </widget>
-    </widget>
-   </widget>
+    </item>
+   </layout>
   </widget>
   <widget class="QMenuBar" name="menubar">
    <property name="geometry">
     <rect>
      <x>0</x>
      <y>0</y>
-     <width>804</width>
+     <width>1029</width>
      <height>21</height>
     </rect>
    </property>
