@@ -8,7 +8,7 @@ from update import update_all_mangas
 from gui import Ui_gui
 from reader import Ui_reader
 import cloudscraper
-import time, os, sys, re, json, html, copy
+import time, os, sys, re, json, html, copy, shutil
 import sys
 
 def find_manga(manga_list, title):
@@ -355,6 +355,13 @@ class Reader(QMainWindow):
             combobox.addItem(page.split('.')[0])
 
 
+    def set_page_new_chap(self):
+        path = 'download/{}/{}/'.format(self.manga, self.chapter_list[self.chapter_index])
+        pages = os.listdir(path)
+        self.page_list = pages
+        self.page_index = 0
+
+
     def __init__(self, category, manga, chapter_list, chapter_index):
         QMainWindow.__init__(self)
         with open('profile.json', 'r') as infile:
@@ -370,14 +377,83 @@ class Reader(QMainWindow):
         self.reader.setupUi(self)
         self.populate_combo_box()
         self.setpage()
+        self.read_chapters = []
 
         self.reader.jump.clicked.connect(self.handle_jump_click)
+        self.reader.unread.clicked.connect(self.handle_unread_click)
+        self.reader.read.clicked.connect(self.handle_read_click)
+        self.reader.next.clicked.connect(self.handle_next_click)
+        self.reader.previous.clicked.connect(self.handle_prev_click)
+        self.reader.home.clicked.connect(self.handle_home_click)
+        # left and right arrows
+
+    def keyPressEvent(self, event):
+        if event.key() == QtCore.Qt.Key_Left:
+            self.handle_left()
+        elif event.key() == QtCore.Qt.Key_Right:
+            self.handle_right()
+        event.accept()
+
+    def handle_left(self):
+        if self.page_index > 0:
+            self.page_index -= 1
+            self.setpage()
+        elif self.page_index == 0:
+            self.handle_prev_click()
+
+    def handle_right(self):
+        if self.page_index < len(self.page_list)-1:
+            self.page_index += 1
+            self.setpage()
+        elif self.page_index == len(self.page_list)-1:
+            self.read_chapters.append(self.chapter_index)
+            self.handle_next_click()
 
     def handle_jump_click(self):
         dest_page = self.reader.pagelist.currentIndex()
         self.page_index = dest_page
         self.setpage()
+
+    def handle_unread_click(self):
+        chapter = self.chapter_list[self.chapter_index]
+        numchap = float(chapter.split(' ')[0][1:])
+        for index, manga in enumerate(self.profile[self.category]):
+            if manga['title'] == self.manga:
+                self.profile[self.category][index]['recent_read'] = numchap-1
+        with open('profile.json', 'w+') as outfile:
+            json.dump(self.profile, outfile)
     
+    def handle_read_click(self):
+        chapter = self.chapter_list[self.chapter_index]
+        numchap = float(chapter.split(' ')[0][1:])
+        for index, manga in enumerate(self.profile[self.category]):
+            if manga['title'] == self.manga:
+                self.profile[self.category][index]['recent_read'] = numchap
+        with open('profile.json', 'w+') as outfile:
+            json.dump(self.profile, outfile)
+        # path = "download/{}/{}/".format(self.manga, self.chapter_list[self.chapter_index])
+        self.read_chapters.append(self.chapter_index)
+        if self.chapter_index < len(self.chapter_list)-1:
+            self.chapter_index += 1
+            self.set_page_new_chap()
+            self.setpage()
+
+    def handle_next_click(self):
+        if self.chapter_index < len(self.chapter_list)-1:
+            self.chapter_index += 1
+            self.set_page_new_chap()
+            self.setpage()
+    
+    def handle_prev_click(self):
+        if self.chapter_index > 0:
+            self.chapter_index -= 1
+            self.set_page_new_chap()
+            self.setpage()
+
+    def handle_home_click(self):
+        # delete read chapters
+        pass
+        
 
         
 
