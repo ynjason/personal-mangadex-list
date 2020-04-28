@@ -6,6 +6,7 @@ from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from download import float_conversion, zpad, download_specific_manga
 from update import update_all_mangas
 from gui import Ui_gui
+from reader import Ui_reader
 import cloudscraper
 import time, os, sys, re, json, html, copy
 import sys
@@ -129,6 +130,7 @@ class Main(QMainWindow):
         self.gui.remove_btn_grp.buttonClicked.connect(self.handle_remove_click)
 
         self.updated_manga = {}
+        self.to_download = {}
     
     def handle_url_submit(self, lineedit):
         tabindex = self.gui.tabWidget.currentIndex()
@@ -259,7 +261,7 @@ class Main(QMainWindow):
     
     def handle_download_click(self, btn):
         tabindex = self.gui.tabWidget.currentIndex()
-        for title, new_chapters in self.updated_manga.items():
+        for title, new_chapters in self.to_download.items():
             mangaid = self.get_mangaid(title, tabindex)
             download_specific_manga(mangaid, new_chapters)
 
@@ -311,7 +313,8 @@ class Main(QMainWindow):
         tabindex = self.gui.tabWidget.currentIndex()
         for manga in self.profile[tabindex]:
             self.updated_manga[manga['title']] = []
-        self.updated_manga = update_all_mangas(tabindex)
+            self.to_download[manga['title']] = []
+        self.updated_manga, self.to_download = update_all_mangas(tabindex)
         with open('profile.json', 'r') as infile:
             self.profile = json.load(infile)
         print(self.updated_manga)
@@ -338,6 +341,67 @@ class Main(QMainWindow):
                 removed_manga = self.profile[tabindex].pop(i)
         with open('profile.json', 'w+') as outfile:
             json.dump(self.profile, outfile)
+
+
+
+class Reader(QMainWindow):
+    def populate_combo_box(self):
+        combobox = self.reader.centralwidget.findChild(QtWidgets.QComboBox, 'pagelist')
+        combobox.clear()
+        path = 'download/{}/{}/'.format(self.manga, self.chapter_list[self.chapter_index])
+        pages = os.listdir(path)
+        self.page_list = pages
+        for page in pages:
+            combobox.addItem(page.split('.')[0])
+
+
+    def __init__(self, category, manga, chapter_list, chapter_index):
+        QMainWindow.__init__(self)
+        with open('profile.json', 'r') as infile:
+            print("here")
+            self.profile = json.load(infile)
+        self.category = category
+        self.chapter_list = chapter_list
+        self.manga = manga
+        self.chapter_index = chapter_index
+        self.page_list = []
+        self.page_index = 0
+        self.reader = Ui_reader()
+        self.reader.setupUi(self)
+        self.populate_combo_box()
+        self.setpage()
+
+        self.reader.jump.clicked.connect(self.handle_jump_click)
+
+    def handle_jump_click(self):
+        dest_page = self.reader.pagelist.currentIndex()
+        self.page_index = dest_page
+        self.setpage()
+    
+
+        
+
+
+    def setpage(self):
+        scrollarea = self.reader.centralwidget.findChild(QtWidgets.QScrollArea, 'scrollarea')
+
+        self.reader.scrollwidget = QWidget(scrollarea)
+        self.reader.scrollvbox = QVBoxLayout(self.reader.scrollwidget)
+            
+        self.reader.img = QtGui.QPixmap("download/{}/{}/{}".format(self.manga, self.chapter_list[self.chapter_index], self.page_list[self.page_index]))
+        # self.reader.cover_img = self.gui.cover_img.scaledToWidth(256)
+        self.reader.imglabel = QtWidgets.QLabel()
+        self.reader.imglabel.setPixmap(self.reader.img)
+        self.reader.scrollvbox.addWidget(self.reader.imglabel)
+
+        self.reader.scrollwidget.setLayout(self.reader.scrollvbox)
+
+        #Scroll Area Properties
+        scrollarea.setVerticalScrollBarPolicy(Qt.ScrollBarAlwaysOn)
+        scrollarea.setHorizontalScrollBarPolicy(Qt.ScrollBarAlwaysOff)
+        scrollarea.setWidgetResizable(True)
+        scrollarea.setWidget(self.reader.scrollwidget)
+        
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

@@ -53,6 +53,7 @@ def update(category, index, manga_id, lang_code, tld="org"):
     chapters_revised = ["Oneshot" if x == "" else x for x in chapters]
     
     recently_updated = []
+    to_download = []
     recent_update = mangas[category][index]['recent_update']
     mostrecent = mangas[category][index]['recent_update']
     print(chapters_revised)
@@ -65,12 +66,20 @@ def update(category, index, manga_id, lang_code, tld="org"):
                 mostrecent = int(timestamp)
             recently_updated.append(chapter)
             print(recently_updated)
+        recently_read = float(mangas[category][index]['recent_read'])
+        if recently_read == 0:
+            if chapter == 'Oneshot':
+                to_download.append(chapter)
+        if chapter != 'Oneshot':
+            if recently_read < float(chapter):
+                to_download.append(chapter)
+        
 
     mangas[category][index]['recent_update'] = mostrecent
     with open('profile.json', 'w') as outfile:
             json.dump(mangas, outfile)
     print(recently_updated)
-    return recently_updated
+    return recently_updated, to_download
 
 
 
@@ -112,12 +121,15 @@ def update_all_mangas(category):
     
     mangacat = mangas[category]
     updated_chapters = {}
+    to_download_chapters = {}
     for i, manga in enumerate(mangacat):
         try:
-            updated_chapters[manga['title']] = update(category, i, manga['title_id'], lang_code, manga['tld'])
+            updates, to_download = update(category, i, manga['title_id'], lang_code, manga['tld'])
+            updated_chapters[manga['title']] = updates
+            to_download_chapters[manga['title']] = to_download
         except:
             print("Error with URL.")
-    return updated_chapters
+    return updated_chapters, to_download_chapters
 
 
 if __name__ == "__main__":
