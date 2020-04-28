@@ -230,7 +230,7 @@ class Ui_gui(object):
         gui.setStatusBar(self.statusbar)
 
         self.retranslateUi(gui)
-        self.tabWidget.setCurrentIndex(0)
+        self.tabWidget.setCurrentIndex(2)
         QtCore.QMetaObject.connectSlotsByName(gui)
 
     def retranslateUi(self, gui):
@@ -239,8 +239,8 @@ class Ui_gui(object):
         self.urlText_1.setText(_translate("gui", "Mangadex url to add manga to list"))
         self.Select_1.setText(_translate("gui", "Select"))
         self.category_1.setWhatsThis(_translate("gui", "<html><head/><body><p><br/></p></body></html>"))
-        self.category_1.setItemText(0, _translate("gui", "Currently Reading"))
-        self.category_1.setItemText(1, _translate("gui", "To Try"))
+        self.category_1.setItemText(0, _translate("gui", "To Try"))
+        self.category_1.setItemText(1, _translate("gui", "Completed"))
         self.confirmmove_1.setText(_translate("gui", "Move"))
         self.MoveCategories_1.setText(_translate("gui", "Move Categories"))
         self.downloadnew_1.setText(_translate("gui", "Download New"))
@@ -249,7 +249,7 @@ class Ui_gui(object):
         self.Select_2.setText(_translate("gui", "Select"))
         self.category_2.setWhatsThis(_translate("gui", "<html><head/><body><p><br/></p></body></html>"))
         self.category_2.setItemText(0, _translate("gui", "Currently Reading"))
-        self.category_2.setItemText(1, _translate("gui", "To Try"))
+        self.category_2.setItemText(1, _translate("gui", "Completed"))
         self.confirmmove_2.setText(_translate("gui", "Move"))
         self.MoveCategories_2.setText(_translate("gui", "Move Categories"))
         self.downloadnew_2.setText(_translate("gui", "Download New"))

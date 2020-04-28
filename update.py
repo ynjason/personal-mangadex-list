@@ -1,6 +1,7 @@
 import cloudscraper
 import time, os, sys, re, json, html
 
+mangas = []
 
 def pad_filename(str):
     digits = re.compile('(\\d+)')
@@ -18,11 +19,12 @@ def float_conversion(x):
         y = 0
     return y
 
-def update(manga_id, lang_code, manga_dict, tld="org"):
+def update(category, index, manga_id, lang_code, tld="org"):
+    global mangas
     # grab manga info json from api
     scraper = cloudscraper.create_scraper()
     try:
-        r = scraper.get(manga_dict["url"])
+        r = scraper.get(mangas[category][index]["url"])
         manga = json.loads(r.text)
         print(manga)
     except (json.decoder.JSONDecodeError, ValueError) as err:
@@ -51,30 +53,34 @@ def update(manga_id, lang_code, manga_dict, tld="org"):
     chapters_revised = ["Oneshot" if x == "" else x for x in chapters]
     
     recently_updated = []
-    recent_update = manga_dict['recent_update']
-    mostrecent = 0
+    recent_update = mangas[category][index]['recent_update']
+    mostrecent = mangas[category][index]['recent_update']
     print(chapters_revised)
     for chapter, timestamp in chapters_revised:
         print("here")
-        if chapter == '':
-            continue
+        # if chapter == '':
+        #     continue
         if int(timestamp) > recent_update:
             if int(timestamp) > mostrecent:
                 mostrecent = int(timestamp)
             recently_updated.append(chapter)
             print(recently_updated)
 
-    manga_dict['recent_update'] = mostrecent
+    mangas[category][index]['recent_update'] = mostrecent
     with open('profile.json', 'w') as outfile:
-            json.dump(manga_dict, outfile)
-
+            json.dump(mangas, outfile)
+    print(recently_updated)
     return recently_updated
 
 
 
 
-def update_all_mangas(mangas):
+def update_all_mangas(category):
     lang_code = "gb"
+
+    global mangas
+    with open('profile.json', 'r') as infile:
+        mangas = json.load(infile)
 
     # with open('profile.json', 'r') as infile:
     #     mangas = json.load(infile)
@@ -104,16 +110,15 @@ def update_all_mangas(mangas):
     #     with open('profile.json', 'w') as outfile:
     #         json.dump(mangas, outfile)
     
+    mangacat = mangas[category]
     updated_chapters = {}
-    for manga in mangas:
+    for i, manga in enumerate(mangacat):
         try:
-            updated_chapters[manga['title']] = update(manga['title_id'], lang_code, manga, manga['tld'])
+            updated_chapters[manga['title']] = update(category, i, manga['title_id'], lang_code, manga['tld'])
         except:
             print("Error with URL.")
     return updated_chapters
 
 
 if __name__ == "__main__":
-    with open('profile.json', 'r') as infile:
-        mangas = json.load(infile)
-    update_all_mangas(mangas[0])
+    update_all_mangas(0)

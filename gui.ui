@@ -24,7 +24,7 @@
      </rect>
     </property>
     <property name="currentIndex">
-     <number>0</number>
+     <number>2</number>
     </property>
     <widget class="QWidget" name="CurrentlyReading">
      <attribute name="title">
@@ -114,12 +114,12 @@
          </property>
          <item>
           <property name="text">
-           <string>Currently Reading</string>
+           <string>To Try</string>
           </property>
          </item>
          <item>
           <property name="text">
-           <string>To Try</string>
+           <string>Completed</string>
           </property>
          </item>
         </widget>
@@ -241,7 +241,7 @@
          </item>
          <item>
           <property name="text">
-           <string>To Try</string>
+           <string>Completed</string>
           </property>
          </item>
         </widget>
