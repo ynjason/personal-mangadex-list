@@ -10,7 +10,7 @@ Maintains cover img and chapters from Mangadex
 
 ## Getting Started
 
-* download this and run python main.py
+* download this and run python main.py\
 or
 * You can also take the main.exe file and run it
 
