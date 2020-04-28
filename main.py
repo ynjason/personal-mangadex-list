@@ -10,6 +10,7 @@ from reader import Ui_reader
 import cloudscraper
 import time, os, sys, re, json, html, copy, shutil
 import sys
+import functools
 
 def find_manga(manga_list, title):
     for manga in manga_list:
@@ -241,14 +242,32 @@ class Main(QMainWindow):
         self.gui.scrollvbox.addWidget(self.gui.mangaread)
 
         chapters = getchapterlist(manga)
+        downloaded_list = []
         for chapter in chapters:
-            object = QLabel(chapter[1])
             dest_folder = os.path.join(os.getcwd(), "download", manga['title'], chapter[1])
             if os.path.isdir(dest_folder):
-                # TODO for reader
-                print("here")
-            self.gui.scrollvbox.addWidget(object)
-
+                downloaded_list.append(chapter[1])
+    
+        # self.gui.chapterbtn_grp = QtWidgets.QButtonGroup()
+        # self.gui.chapterbtn_grp.setExclusive(True)
+        # self.gui.chapterbtn_grp.buttonClicked.connect(lambda: self.gotoreader(tabindex, manga['title'], downloaded_list))
+        counter = 0
+        for i, chapter in enumerate(chapters):
+            dest_folder = os.path.join(os.getcwd(), "download", manga['title'], chapter[1])
+            if os.path.isdir(dest_folder):
+                # object = QtWidgets.QPushButton()
+                # object.setObjectName(chapter[1])
+                # object.setAlignment(QtCore.Qt.AlignLeft)
+                # object.setText(chapter[1])
+                object = QLabel(chapter[1])
+                # object.clicked.connect(lambda: self.gotoreader(tabindex, manga['title'], downloaded_list, counter))
+                object.mousePressEvent = functools.partial(self.gotoreader, category=tabindex, manga=manga['title'], chapter_list=downloaded_list, chapter_index=counter)
+                # self.gui.chapterbtn_grp.addButton(object)
+                counter += 1
+                self.gui.scrollvbox.addWidget(object)
+            else:
+                object = QLabel(chapter[1])
+                self.gui.scrollvbox.addWidget(object)
         self.gui.scrollwidget.setLayout(self.gui.scrollvbox)
 
         #Scroll Area Properties
@@ -259,6 +278,14 @@ class Main(QMainWindow):
 
         self.show()
     
+    def gotoreader(self, event, category, manga, chapter_list, chapter_index):
+        # print(btn.text())
+        print(chapter_index)
+        print(chapter_list)
+        self.reader = Reader(category, manga, chapter_list, chapter_index)
+        self.reader.show()
+        self.close()
+
     def handle_download_click(self, btn):
         tabindex = self.gui.tabWidget.currentIndex()
         for title, new_chapters in self.to_download.items():
@@ -431,7 +458,6 @@ class Reader(QMainWindow):
                 self.profile[self.category][index]['recent_read'] = numchap
         with open('profile.json', 'w+') as outfile:
             json.dump(self.profile, outfile)
-        # path = "download/{}/{}/".format(self.manga, self.chapter_list[self.chapter_index])
         self.read_chapters.append(self.chapter_index)
         if self.chapter_index < len(self.chapter_list)-1:
             self.chapter_index += 1
@@ -452,14 +478,16 @@ class Reader(QMainWindow):
 
     def handle_home_click(self):
         # delete read chapters
-        pass
-        
-
-        
+        for chapter in self.read_chapters:
+            path = "download/{}/{}/".format(self.manga, chapter)
+            shutil.rmtree(path)
+        self.main = Main()
+        self.main.show()
+        self.close()
 
 
     def setpage(self):
-        scrollarea = self.reader.centralwidget.findChild(QtWidgets.QScrollArea, 'scrollarea')
+        scrollarea = self.reader.centralwidget.findChild(QtWidgets.QScrollArea, 'scrollArea')
 
         self.reader.scrollwidget = QWidget(scrollarea)
         self.reader.scrollvbox = QVBoxLayout(self.reader.scrollwidget)
