@@ -1,7 +1,6 @@
 import cloudscraper
 import time, os, sys, re, json, html
 
-A_VERSION = "0.2.2"
 
 def pad_filename(str):
     digits = re.compile('(\\d+)')
@@ -129,23 +128,23 @@ def download_specific_manga(manga_id, new_chapters, lang_code="gb", tld="org"):
     print("Done!")
 
 
-if __name__ == "__main__":
-    print("mangadex-dl v{}".format(A_VERSION))
+# if __name__ == "__main__":
+#     print("mangadex-dl v{}".format(A_VERSION))
 
-    if len(sys.argv) > 1:
-        lang_code = sys.argv[1]
-    else:
-        lang_code = "gb"
+#     if len(sys.argv) > 1:
+#         lang_code = sys.argv[1]
+#     else:
+#         lang_code = "gb"
 
-    url = ""
-    while url == "":
-        url = input("Enter manga URL: ").strip()
-    try:
-        manga_id = re.search("[0-9]+", url).group(0)
-        split_url = url.split("/")
-        for segment in split_url:
-            if "mangadex" in segment:
-                url = segment.split('.')
-        dl(manga_id, lang_code, url[1])
-    except:
-        print("Error with URL.")
+#     url = ""
+#     while url == "":
+#         url = input("Enter manga URL: ").strip()
+#     try:
+#         manga_id = re.search("[0-9]+", url).group(0)
+#         split_url = url.split("/")
+#         for segment in split_url:
+#             if "mangadex" in segment:
+#                 url = segment.split('.')
+#         dl(manga_id, lang_code, url[1])
+#     except:
+#         print("Error with URL.")
