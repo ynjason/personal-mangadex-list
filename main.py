@@ -1,5 +1,5 @@
 from PyQt5.QtWidgets import (QWidget, QSlider, QLineEdit, QLabel, QPushButton, QScrollArea,QApplication,
-                             QHBoxLayout, QVBoxLayout, QMainWindow)
+                             QHBoxLayout, QVBoxLayout, QMainWindow, QShortcut)
 from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt, QSize
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
@@ -277,6 +277,7 @@ class Main(QMainWindow):
                 # object.setAlignment(QtCore.Qt.AlignLeft)
                 # object.setText(chapter[1])
                 object = QLabel(chapter[1])
+                object.setStyleSheet('color: blue')
                 # object.clicked.connect(lambda: self.gotoreader(tabindex, manga['title'], downloaded_list, counter))
                 object.mousePressEvent = functools.partial(self.gotoreader, category=tabindex, manga=manga['title'], chapter_list=downloaded_list, chapter_index=counter)
                 # self.gui.chapterbtn_grp.addButton(object)
@@ -433,14 +434,14 @@ class Reader(QMainWindow):
         self.reader.next.clicked.connect(self.handle_next_click)
         self.reader.previous.clicked.connect(self.handle_prev_click)
         self.reader.home.clicked.connect(self.handle_home_click)
+        QShortcut(QKeySequence(QtCore.Qt.Key_Left), self, activated=self.handle_left)
+        QShortcut(QKeySequence(QtCore.Qt.Key_Right), self, activated=self.handle_right)
         # left and right arrows
 
-    def keyPressEvent(self, event):
-        if event.key() == QtCore.Qt.Key_Left:
-            self.handle_left()
-        elif event.key() == QtCore.Qt.Key_Right:
-            self.handle_right()
-        event.accept()
+    def mouseDoubleClickEvent(self, cls):
+        self.handle_right()
+        return super().mouseDoubleClickEvent(cls)
+
 
     def handle_left(self):
         if self.page_index > 0:
@@ -522,7 +523,7 @@ class Reader(QMainWindow):
         
         print("download/{}/{}/{}".format(self.manga, self.chapter_list[self.chapter_index], self.page_list[self.page_index]))
         self.reader.img = QtGui.QPixmap("download/{}/{}/{}".format(self.manga, self.chapter_list[self.chapter_index], self.page_list[self.page_index]))
-        self.reader.img = self.reader.img.scaledToHeight(1024)
+        # self.reader.img = self.reader.img.scaledToHeight(1024)
         self.reader.imglabel = QtWidgets.QLabel()
         self.reader.imglabel.setPixmap(self.reader.img)
         self.reader.scrollvbox.addWidget(self.reader.imglabel)
