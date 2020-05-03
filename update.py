@@ -1,7 +1,9 @@
 import cloudscraper
 import time, os, sys, re, json, html
-
 mangas = []
+
+def remove_special_char(str):
+    return ''.join(e for e in str if e.isalnum())
 
 def pad_filename(str):
     digits = re.compile('(\\d+)')
@@ -33,6 +35,7 @@ def update(category, index, manga_id, lang_code, tld="org"):
 
     try:
         title = manga["manga"]["title"]
+        title = remove_special_char(title)
     except:
         print("Please enter a MangaDex manga (not chapter) URL.")
         exit(1)

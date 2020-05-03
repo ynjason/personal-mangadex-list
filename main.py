@@ -4,7 +4,7 @@ from PyQt5.QtGui import *
 from PyQt5.QtCore import Qt, QSize
 from PyQt5 import QtWidgets, uic, QtGui, QtCore
 from download import float_conversion, zpad, download_specific_manga
-from update import update_all_mangas
+from update import update_all_mangas, remove_special_char
 from gui import Ui_gui
 from reader import Ui_reader
 import cloudscraper
@@ -12,6 +12,8 @@ import time, os, sys, re, json, html, copy, shutil
 import sys
 import functools
 import threading
+
+
 
 def find_manga(manga_list, title):
     for manga in manga_list:
@@ -158,6 +160,7 @@ class Main(QMainWindow):
 
         try:
             title = manga["manga"]["title"]
+            title = remove_special_char(title)
         except:
             print("Please enter a MangaDex manga (not chapter) URL.")
             exit(1)

@@ -3,6 +3,9 @@ import time, os, sys, re, json, html
 import threading
 
 
+def remove_special_char(str):
+    return ''.join(e for e in str if e.isalnum())
+
 def pad_filename(str):
     digits = re.compile('(\\d+)')
     pos = digits.search(str)
@@ -37,6 +40,7 @@ def download_specific_manga(manga_id, new_chapters, lang_code="gb", tld="org"):
 
     try:
         title = manga["manga"]["title"]
+        title = remove_special_char(title)
     except:
         print("Please enter a MangaDex manga (not chapter) URL.")
         return
@@ -106,6 +110,7 @@ def download_specific_manga(manga_id, new_chapters, lang_code="gb", tld="org"):
         # print(images)
         # download images
         groupname = chapter_id[2].replace("/","-")
+        failcounter = 0
         for url in images:
             filename = os.path.basename(url)
             dest_folder = os.path.join(os.getcwd(), "download", title, "c{} [{}]".format(zpad(chapter_id[0]), groupname))
@@ -116,12 +121,15 @@ def download_specific_manga(manga_id, new_chapters, lang_code="gb", tld="org"):
             # print(url)
             r = scraper.get(url)
             if r.status_code == 200:
+                failcounter = 0
                 with open(outfile, 'wb') as f:
                     f.write(r.content)
             else:
-                print("failed")
+                print("failed", failcounter)
                 print("Encountered Error {} when downloading.".format(r.status_code))
-                images.append(url)
+                if failcounter < 5:
+                    images.insert(0, url)
+                failcounter += 1
 
             print(" Downloaded page {}.".format(re.sub("\\D", "", filename)))
             time.sleep(1)
